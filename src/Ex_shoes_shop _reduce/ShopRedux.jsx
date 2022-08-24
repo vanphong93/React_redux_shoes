@@ -2,7 +2,7 @@ import React, { Component } from "react";
 
 import GioHang from "./GioHang";
 import ListShoes from "./ListShoes";
-export default class Ex_shop_redux extends Component {
+export default class ShopRedux extends Component {
   render() {
     return (
       <div>
