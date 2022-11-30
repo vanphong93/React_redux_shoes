@@ -3,15 +3,12 @@ import ReactDOM from "react-dom/client";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { Provider } from "react-redux";
-import { createStore } from "redux";
-import { rootReducer_Shop } from "./Ex_shoes_shop _reduce/redux/reducer/rootReducer";
-let store = createStore(rootReducer_Shop);
-
+import store from "./Ex_shoes_shop _reduce/redux/reducer/rootReducer";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <Provider store={store}>
-    <App />
-  </Provider>
+    <Provider store={store}>
+        <App />
+    </Provider>
 );
 
 // If you want to start measuring performance in your app, pass a function

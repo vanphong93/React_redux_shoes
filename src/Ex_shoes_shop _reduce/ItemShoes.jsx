@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { ADD, DETAIL } from "./redux/reducer/constants/shoeConstants";
+import { addProduct, showDetail } from "./redux/reducer/newShoeReducer";
  class ItemShoes extends Component {
   render() {
     let { image, name,price } = this.props.detail;
@@ -40,16 +40,10 @@ import { ADD, DETAIL } from "./redux/reducer/constants/shoeConstants";
 let mapDispatchToProps = (dispatch) => {
   return {
     handleAdd:(value) => { 
-      dispatch({
-        type:ADD,
-        payload:value,
-      })
+dispatch(addProduct(value))
      },
     handleDetail: (value) => {
-      dispatch({
-        type:DETAIL,
-        payload:value,
-      });
+      dispatch(showDetail(value));
     },
   };
 };

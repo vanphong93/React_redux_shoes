@@ -1,5 +1,6 @@
-import { combineReducers } from "redux";
-import { shoeReducer } from "./shoeReducer";
-export const rootReducer_Shop=combineReducers({
-    shoeReducer,
-})
+
+import { configureStore } from "@reduxjs/toolkit";
+import shoeReducer from './newShoeReducer';
+export default configureStore({
+    reducer: { shoeReducer },
+});
