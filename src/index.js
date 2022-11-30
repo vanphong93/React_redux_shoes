@@ -2,10 +2,11 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
+import thunk from 'redux-thunk';
 import { Provider } from "react-redux";
-import { createStore } from "redux";
+import { createStore,applyMiddleware } from "redux";
 import { rootReducer_Shop } from "./Ex_shoes_shop _reduce/redux/reducer/rootReducer";
-let store = createStore(rootReducer_Shop);
+let store = createStore(rootReducer_Shop,applyMiddleware(thunk));
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
