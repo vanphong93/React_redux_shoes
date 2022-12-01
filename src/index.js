@@ -3,15 +3,18 @@ import ReactDOM from "react-dom/client";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { Provider } from "react-redux";
-import { createStore } from "redux";
+import createSagaMiddleware from "redux-saga";
+import { createStore, applyMiddleware } from "redux";
 import { rootReducer_Shop } from "./Ex_shoes_shop _reduce/redux/reducer/rootReducer";
-let store = createStore(rootReducer_Shop);
-
+import IndexSaga from "./Ex_shoes_shop _reduce/redux/reducer/rootSaga";
+const sagaMiddleware = createSagaMiddleware();
+let store = createStore(rootReducer_Shop, applyMiddleware(sagaMiddleware));
+sagaMiddleware.run(IndexSaga);
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <Provider store={store}>
-    <App />
-  </Provider>
+    <Provider store={store}>
+        <App />
+    </Provider>
 );
 
 // If you want to start measuring performance in your app, pass a function

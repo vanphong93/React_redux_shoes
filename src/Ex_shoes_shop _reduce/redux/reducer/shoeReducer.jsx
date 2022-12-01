@@ -1,11 +1,12 @@
 import {
     ADD,
     BUY,
+    DATA,
     DECREASE,
     DETAIL,
     INCREASE,
     REMOVE,
-} from "./constants/shoeConstants";
+} from "../constants/shoeConstants";
 let initialization = [
     {
         id: 1,
@@ -23,6 +24,7 @@ let initialization = [
 let initialState = {
     detailShoe: initialization[0],
     gioHang: [],
+    dataAll: initialization,
 };
 export let shoeReducer = (state = initialState, { type, payload }) => {
     switch (type) {
@@ -71,7 +73,12 @@ export let shoeReducer = (state = initialState, { type, payload }) => {
             alert("Chúc mừng bạn đặt hàng thành công");
             return { ...state, gioHang: newGioHang };
         }
-
+        case DATA: {
+            if (payload) {
+                return { ...state, dataAll: payload };
+            }
+            return state;
+        }
         default:
             return state;
     }

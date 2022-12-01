@@ -1,39 +1,11 @@
 import React, { Component } from "react";
-import axios from "axios";
 import ItemShoes from "./ItemShoes";
 import { connect } from "react-redux";
-const BASE_URL = "https://62db6ca4d1d97b9e0c4f338f.mockapi.io";
-let initialization = [
-    {
-        id: 1,
-        name: "Adidas Prophere",
-        alias: "adidas-prophere",
-        price: 350,
-        description:
-            "The adidas Primeknit upper wraps the foot with a supportive fit that enhances movement.\r\n\r\n",
-        shortDescription:
-            "The midsole contains 20% more Boost for an amplified Boost feeling.\r\n\r\n",
-        quantity: 995,
-        image: "http://svcy3.myclass.vn/images/adidas-prophere.png",
-    },
-];
+import { DATA } from "./redux/constants/shoeConstants";
 class ListShoes extends Component {
-    state = {
-        shoeArr: initialization,
+    getData = () => {
+        this.props.dispatch({type: DATA});
     };
-    async getData() {
-        try {
-            let { data } = await axios({
-                url: `${BASE_URL}/shoeShop`,
-                method: "GET",
-            });
-            this.setState({
-                shoeArr: data,
-            });
-        } catch (error) {
-            console.log("error: ", error);
-        }
-    }
     componentDidMount() {
         this.getData();
     }
@@ -42,7 +14,7 @@ class ListShoes extends Component {
         return (
             <div className="container">
                 <div className="row justify-content-center">
-                    {this.state.shoeArr.map((item, i) => {
+                    {this.props.dataAll.map((item, i) => {
                         return (
                             <div key={i} className="col-4">
                                 <ItemShoes detail={item} />
@@ -74,6 +46,7 @@ class ListShoes extends Component {
 const mapStateToProps = (state) => {
     return {
         detailShoe: state.shoeReducer.detailShoe,
+        dataAll: state.shoeReducer.dataAll,
     };
 };
 

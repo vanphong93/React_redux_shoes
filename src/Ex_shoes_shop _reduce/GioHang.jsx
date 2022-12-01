@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { BUY, DECREASE, INCREASE, REMOVE } from "./redux/reducer/constants/shoeConstants";
+import { BUY, DECREASE, INCREASE, REMOVE } from "./redux/constants/shoeConstants";
 class GioHang extends Component {
   totalPrice = 0;
   renderBody = () => {
