@@ -16,7 +16,7 @@ class ListShoes extends Component {
                 <div className="row justify-content-center">
                     {this.props.dataAllShoe.map((item, i) => {
                         return (
-                            <div key={i} className="col-4">
+                            <div key={i} className=" col-md-6 col-xl-4 ">
                                 <ItemShoes detail={item} />
                             </div>
                         );

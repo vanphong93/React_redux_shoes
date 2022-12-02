@@ -1,0 +1,11 @@
+export const DETAIL = "detail";
+export const ADD = "add";
+export const INCREASE = "increase";
+export const DECREASE = "decrease";
+export const REMOVE = "remove";
+export const BUY = "buy";
+export const GET_DATA = "getData";
+export const DELETE_DATA = "deleteData";
+export const BACK_UP = "backUp";
+export const UPDATE_DATA = "update";
+export const ADD_DATA = "addShoe";
