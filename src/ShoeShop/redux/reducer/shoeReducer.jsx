@@ -1,15 +1,19 @@
 import {
     ADD,
+    ADD_DATA,
+    BACK_UP,
     BUY,
     DECREASE,
+    DELETE_DATA,
     DETAIL,
+    GET_DATA,
     INCREASE,
     REMOVE,
+    UPDATE_DATA,
 } from "../constants/shoeConstants";
-// import axios from "axios";
-import { BASE_URL } from "../../ListShoes";
-import axios from "axios";
 import { dataBackUp } from "../../../assets/dataBackUp";
+import { randomNumber } from "../../Utilities/Utilities";
+import { shoeSer } from "../../Services/shoeServices";
 
 let initialization = [
     {
@@ -30,7 +34,7 @@ let initialState = {
     gioHang: [],
     dataShoes: initialization,
 };
-export let shoeReducer = (state = initialState, { type, payload }) => {
+export let shoeReducer = (state = initialState, { type, payload, des }) => {
     switch (type) {
         case DETAIL:
             return { ...state, detailShoe: payload };
@@ -77,19 +81,17 @@ export let shoeReducer = (state = initialState, { type, payload }) => {
             alert("Chúc mừng bạn đặt hàng thành công");
             return { ...state, gioHang: newGioHang };
         }
-        case "getData":
+        case GET_DATA:
             return { ...state, dataShoes: payload };
-        case "deleteData": {
+        case DELETE_DATA: {
             let newData = [...state.dataShoes];
             let index = newData.findIndex((item) => {
                 return item.name == payload;
             });
             let idDelete = newData[index].id;
             newData.splice(index, 1);
-            axios({
-                url: `${BASE_URL}/shoeShop/${idDelete}`,
-                method: "DELETE",
-            })
+            shoeSer
+                .deleteData(idDelete)
                 .then((res) => {
                     console.log(res);
                 })
@@ -102,7 +104,7 @@ export let shoeReducer = (state = initialState, { type, payload }) => {
             };
         }
 
-        case "backUp": {
+        case BACK_UP: {
             let restData = [...state.dataShoes];
             let deletedItem = dataBackUp.filter((itemDeleted) => {
                 return (
@@ -116,11 +118,8 @@ export let shoeReducer = (state = initialState, { type, payload }) => {
                 const promises = [];
                 deletedItem.forEach((item) => {
                     promises.push(
-                        axios({
-                            url: `${BASE_URL}/shoeShop`,
-                            method: "POST",
-                            data: item,
-                        })
+                        shoeSer
+                            .createData(item)
                             .then((res) => {
                                 console.log(res);
                             })
@@ -135,29 +134,42 @@ export let shoeReducer = (state = initialState, { type, payload }) => {
                 });
             };
             updateData(deletedItem);
+            return state;
         }
-        case "addShoe":
-            axios({
-                url: `${BASE_URL}/shoeShop`,
-                method: "POST",
-                data: {
-                    name: payload,
-                    alias: payload,
-                    price: 350,
-                    description:
-                        "The adidas Primeknit upper wraps the foot with a supportive fit that enhances movement.",
-                    shortDescription:
-                        "The midsole contains 20% more Boost for an amplified Boost feeling.",
-                    quantity: 995,
-                    image: "http://svcy3.myclass.vn/images/adidas-prophere.png",
-                },
-            })
+        case ADD_DATA: {
+            let dataPost = {
+                description: des,
+                name: payload,
+                price: randomNumber(900, 300),
+            };
+            shoeSer
+                .createData(dataPost)
                 .then((res) => {
                     window.location.reload();
                 })
                 .catch((err) => {
                     console.log("err: ", err);
                 });
+            return state;
+        }
+        case UPDATE_DATA: {
+            let newData = [...state.dataShoes];
+            let index = newData.findIndex((item) => {
+                return item.name == payload;
+            });
+            let idUpdate = newData[index].id;
+            let dataPost = { description: des };
+            shoeSer
+                .updateData(dataPost, idUpdate)
+                .then((res) => {
+                    window.location.reload();
+                })
+                .catch((err) => {
+                    console.log("err: ", err);
+                });
+            return state;
+        }
+
         default:
             return state;
     }
