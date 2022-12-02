@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { addProduct, showDetail } from "./redux/reducer/newShoeReducer";
+import { handleAdd, handleDetail } from "./redux/actions/actionsShoe";
+
  class ItemShoes extends Component {
   render() {
     let { image, name,price } = this.props.detail;
@@ -15,7 +16,7 @@ import { addProduct, showDetail } from "./redux/reducer/newShoeReducer";
           <button
             type="button"
             onClick={() => {
-              this.props.handleAdd(this.props.detail);
+              this.props.dispatch(handleAdd(this.props.detail));
             }}
             className="btn btn-success"
           >
@@ -23,7 +24,7 @@ import { addProduct, showDetail } from "./redux/reducer/newShoeReducer";
           </button>
           <a
             onClick={() => {
-              this.props.handleDetail(this.props.detail);
+              this.props.dispatch(handleDetail(this.props.detail));
             }}
             href="#info"
             role="button"
@@ -37,14 +38,4 @@ import { addProduct, showDetail } from "./redux/reducer/newShoeReducer";
   }
 }
 
-let mapDispatchToProps = (dispatch) => {
-  return {
-    handleAdd:(value) => { 
-dispatch(addProduct(value))
-     },
-    handleDetail: (value) => {
-      dispatch(showDetail(value));
-    },
-  };
-};
-export default connect(null, mapDispatchToProps)(ItemShoes);
+export default connect(null, null)(ItemShoes);

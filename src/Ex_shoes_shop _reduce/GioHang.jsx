@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import {
-  buyProduct,
-    dereaseQuantity,
-    increaseQuantity,
-    removeProduct,
-} from "./redux/reducer/newShoeReducer";
+    handleBuy,
+    handleDecrease,
+    handleIncrease,
+    handleRemove,
+} from "./redux/actions/actionsShoe";
 class GioHang extends Component {
     totalPrice = 0;
     renderBody = () => {
@@ -23,7 +23,7 @@ class GioHang extends Component {
                     <td className="d-flex">
                         <button
                             onClick={() => {
-                                this.props.handleIncrease(item);
+                                this.props.dispatch(handleIncrease(item));
                             }}
                             className="btn btn-primary mx-2"
                         >
@@ -32,7 +32,7 @@ class GioHang extends Component {
                         <span>{item.soLuong}</span>
                         <button
                             onClick={() => {
-                                this.props.handleDecrease(item);
+                                this.props.dispatch(handleDecrease(item));
                             }}
                             className="btn btn-warning mx-2"
                         >
@@ -43,7 +43,7 @@ class GioHang extends Component {
                         {" "}
                         <button
                             onClick={() => {
-                                this.props.handleRemove(item);
+                                this.props.dispatch(handleRemove(item));
                             }}
                             className="btn btn-danger mx-2"
                         >
@@ -93,7 +93,9 @@ class GioHang extends Component {
                                     Total:<span>{this.totalPrice}$</span>
                                 </h5>
                                 <button
-                                    onClick={this.props.handleBuy}
+                                    onClick={(e) => {
+                                        this.props.dispatch(handleBuy());
+                                    }}
                                     type="button"
                                     className="btn btn-primary"
                                 >
@@ -119,20 +121,5 @@ let mapStateToProps = (state) => {
         gioHang: state.shoeReducer.gioHang,
     };
 };
-let mapDispatchToProps = (dispatch) => {
-    return {
-        handleIncrease: (value) => {
-            dispatch(increaseQuantity(value));
-        },
-        handleDecrease: (value) => {
-            dispatch(dereaseQuantity(value));
-        },
-        handleRemove: (value) => {
-            dispatch(removeProduct(value));
-        },
-        handleBuy: () => {
-            dispatch(buyProduct());
-        },
-    };
-};
-export default connect(mapStateToProps, mapDispatchToProps)(GioHang);
+
+export default connect(mapStateToProps, null)(GioHang);
