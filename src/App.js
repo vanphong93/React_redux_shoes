@@ -1,6 +1,6 @@
 
 import './App.css';
-import ShopRedux from './Ex_shoes_shop _reduce/ShopRedux';
+import ShopRedux from './ShoeShop/ShopRedux';
 function App() {
 
   return (

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { ADD, DETAIL } from "./redux/reducer/constants/shoeConstants";
+import { ADD, DETAIL } from "./redux/constants/shoeConstants";
  class ItemShoes extends Component {
   render() {
     let { image, name,price } = this.props.detail;
