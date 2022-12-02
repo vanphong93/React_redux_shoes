@@ -1,17 +1,22 @@
 import { initialization } from "../../Utilities/DataInitial";
 import {
     ADD,
+    ADD_DATA,
+    BACK_UP,
     BUY,
-    DATA,
     DECREASE,
+    DELETE_DATA,
     DETAIL,
+    GET_DATA,
     INCREASE,
     REMOVE,
+    UPDATE_DATA,
 } from "./constants/shoeConstants";
 let initialState = {
     dataAllShoe: [],
     detailShoe: initialization[0],
     gioHang: [],
+    isChanged: 1,
 };
 export let shoeReducer = (state = initialState, { type, payload }) => {
     switch (type) {
@@ -60,10 +65,31 @@ export let shoeReducer = (state = initialState, { type, payload }) => {
             alert("Chúc mừng bạn đặt hàng thành công");
             return { ...state, gioHang: newGioHang };
         }
-        case DATA: {
+        case GET_DATA: {
+            console.log(payload);
             return { ...state, dataAllShoe: payload };
         }
+        case DELETE_DATA:
+            return {
+                ...state,
+                dataAllShoe: payload,
+            };
+        case BACK_UP: {
+            let newData = state.isChanged;
+            newData++;
+            return { ...state, isChanged: newData };
+        }
 
+        case ADD_DATA: {
+            let newData = state.isChanged;
+            newData++;
+            return { ...state, isChanged: newData };
+        }
+        case UPDATE_DATA: {
+            let newData = state.isChanged;
+            newData++;
+            return { ...state, isChanged: newData };
+        }
         default:
             return state;
     }

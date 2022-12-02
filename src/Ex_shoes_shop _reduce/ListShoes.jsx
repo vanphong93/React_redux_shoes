@@ -16,7 +16,7 @@ class ListShoes extends Component {
                 <div className="row justify-content-center">
                     {this.props.dataAllShoe.map((item, i) => {
                         return (
-                            <div key={i} className="col-4">
+                            <div key={i} className="col-md-6 col-xl-4">
                                 <ItemShoes detail={item} />
                             </div>
                         );
@@ -41,12 +41,18 @@ class ListShoes extends Component {
             </div>
         );
     }
+    componentDidUpdate(prevProps) {
+        if (prevProps.isChanged !== this.props.isChanged) {
+            this.getData();
+        }
+    }
 }
 
 const mapStateToProps = (state) => {
     return {
         detailShoe: state.shoeReducer.detailShoe,
         dataAllShoe: state.shoeReducer.dataAllShoe,
+        isChanged: state.shoeReducer.isChanged,
     };
 };
 
