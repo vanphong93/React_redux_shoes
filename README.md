@@ -1,3 +1,10 @@
+# SHOE SHOP with Redux
+
+
+<div align="center">
+  <img src="./src/assets/miniShop.jpeg" alt="Screen" width="100%" height="100%">
+</div>
+
 ## Branch
 - master: redux basics.
 - redux_CRUD: redux and call API.
