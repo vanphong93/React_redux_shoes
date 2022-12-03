@@ -1,30 +1,21 @@
+import { initialization } from "../../Utilities/dataInitialization";
 import {
     ADD,
     BUY,
     DATA,
     DECREASE,
+    DELETE_DATA,
     DETAIL,
     INCREASE,
     REMOVE,
+    RESET,
 } from "../constants/shoeConstants";
-let initialization = [
-    {
-        id: 1,
-        name: "Adidas Prophere",
-        alias: "adidas-prophere",
-        price: 350,
-        description:
-            "The adidas Primeknit upper wraps the foot with a supportive fit that enhances movement.\r\n\r\n",
-        shortDescription:
-            "The midsole contains 20% more Boost for an amplified Boost feeling.\r\n\r\n",
-        quantity: 995,
-        image: "http://svcy3.myclass.vn/images/adidas-prophere.png",
-    },
-];
+
 let initialState = {
     detailShoe: initialization[0],
     gioHang: [],
     dataAll: initialization,
+    isReset: true,
 };
 export let shoeReducer = (state = initialState, { type, payload }) => {
     switch (type) {
@@ -70,15 +61,25 @@ export let shoeReducer = (state = initialState, { type, payload }) => {
         case BUY: {
             let newGioHang = [...state.gioHang];
             newGioHang.splice(0);
-            alert("Chúc mừng bạn đặt hàng thành công");
+            alert("Okay");
             return { ...state, gioHang: newGioHang };
         }
         case DATA: {
             if (payload) {
-                return { ...state, dataAll: payload };
+                return { ...state, dataAll: payload, isReset: false };
             }
             return state;
         }
+        case DELETE_DATA:
+            return {
+                ...state,
+                isReset: true,
+            };
+        case RESET:
+            return {
+                ...state,
+                isReset: true,
+            };
         default:
             return state;
     }

@@ -8,7 +8,11 @@ import { createStore, applyMiddleware } from "redux";
 import { rootReducer_Shop } from "./Ex_shoes_shop _reduce/redux/reducer/rootReducer";
 import IndexSaga from "./Ex_shoes_shop _reduce/redux/reducer/rootSaga";
 const sagaMiddleware = createSagaMiddleware();
-let store = createStore(rootReducer_Shop, applyMiddleware(sagaMiddleware));
+let store = createStore(
+    rootReducer_Shop,
+    applyMiddleware(sagaMiddleware),
+
+);
 sagaMiddleware.run(IndexSaga);
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(

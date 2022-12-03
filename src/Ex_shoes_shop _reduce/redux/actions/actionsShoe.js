@@ -1,27 +1,44 @@
-import { call, put } from "redux-saga/effects";
-import { DATA } from "../constants/shoeConstants";
-export function* helloSaga() {
-    console.log("Hello Sagas!");
-}
-async function getData() {
-    try {
-        const res = await fetch(
-            "https://62db6ca4d1d97b9e0c4f338f.mockapi.io/shoeShop",
-            {
-                method: "GET",
-            }
-        );
 
-        return await res.json();
-    } catch (err) {
-        console.log(err);
-    }
-}
-export function* dataFromAPI() {
-    try {
-        const response = yield call(getData);
-        yield put({ type: DATA, payload: response });
-    } catch (error) {
-        console.log(error);
-    }
-}
+import {
+    ADD,
+    BUY,
+    DECREASE,
+    DETAIL,
+    INCREASE,
+    REMOVE,
+} from "../constants/shoeConstants";
+export const handleAdd = (value) => {
+    return {
+        type: ADD,
+        payload: value,
+    };
+};
+export const handleDetail = (value) => {
+    return {
+        type: DETAIL,
+        payload: value,
+    };
+};
+export const handleIncrease = (value) => {
+    return {
+        type: INCREASE,
+        payload: value,
+    };
+};
+export const handleDecrease = (value) => {
+    return {
+        type: DECREASE,
+        payload: value,
+    };
+};
+export const handleRemove = (value) => {
+    return {
+        type: REMOVE,
+        payload: value,
+    };
+};
+export const handleBuy = () => {
+    return {
+        type: BUY,
+    };
+};

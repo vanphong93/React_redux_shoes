@@ -1,8 +1,19 @@
-
-export const DETAIL="detail";
-export const ADD="add";
-export const INCREASE="increase";
-export const DECREASE="decrease";
-export const REMOVE="remove";
-export const BUY="buy";
-export const DATA="data"
+export const DETAIL = "detail";
+export const ADD = "add";
+export const INCREASE = "increase";
+export const DECREASE = "decrease";
+export const REMOVE = "remove";
+export const BUY = "buy";
+export const DATA = "data";
+export const GET_DATA = "getData";
+export const DELETE_DATA = "deleteData";
+export const BACK_UP = "backUp";
+export const UPDATE_DATA = "update";
+export const ADD_DATA = "addShoe";
+export const FINAL = "finally";
+export const RESET = "reset";
+export const BEFORE_UPDATE = "beforeUpdate";
+export const BEFORE_ADD = "beforeAdd";
+export const BEFORE_RESET = "beforeReset";
+export const BEFORE_DELETE = "beforeDelete";
+export const BEFORE_DATA = "beforeData";
