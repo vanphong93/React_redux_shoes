@@ -3,10 +3,12 @@ const BASE_URL = "https://62db6ca4d1d97b9e0c4f338f.mockapi.io";
 export const shopSer = {
     pullData: async () => {
         const data = await fetch(`${BASE_URL}/shoeShop`);
+        console.log("call API pull data");
         return data.json();
     },
     pullById: async (id) => {
         const data = await fetch(`${BASE_URL}/shoeShop/${id}`);
+        console.log("call API pull data by ID");
         return data.json();
     },
     addData: async (data) =>

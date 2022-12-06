@@ -1,12 +1,38 @@
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import React from "react";
 import { shopSer } from "../Services/FetchAPI";
 export function DetailShoe({ isDetail, setIsDetail }) {
-    const { data, isLoading, error } = useQuery(["detail", isDetail], () =>
-        shopSer.pullById(isDetail)
+    const queryClient = useQueryClient();
+    const { data, isLoading, error } = useQuery(
+        ["detail", isDetail],
+        () => {},
+        // () => shopSer.pullById(isDetail),
+        {
+            initialData: () => {
+                return queryClient.getQueryData(["repoData"]).find((item) => {
+                    return item.id === isDetail;
+                });
+            },
+            staleTime: Infinity,
+        }
     );
+    //can get data by id, no need to call API with slateTime, initialData
     if (isLoading) return "Loading...";
-    if (error) return "An error";
+    if (error)
+        return (
+            <>
+                <h1>Error</h1>
+                <a
+                    onClick={() => {
+                        setIsDetail(-1);
+                    }}
+                    role="button"
+                    className="btn btn-info"
+                >
+                    Back
+                </a>
+            </>
+        );
     let { image, name, price, description } = data;
     return (
         <div className="container p-5">

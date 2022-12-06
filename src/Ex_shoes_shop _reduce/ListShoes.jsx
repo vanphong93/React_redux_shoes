@@ -14,15 +14,32 @@ export function ListShoes({ setIsDetail }) {
         (total, item) => total + item.quantityBuy,
         0
     );
-    console.log("totalItemBuy: ", totalItemBuy);
+
     const queryClient = useQueryClient();
-    const { isLoading, error, data } = useQuery(["repoData"], shopSer.pullData);
-    const addTodoMutation = useMutation(shopSer.addData, {
+    const { isLoading, error, data } = useQuery(
+        ["repoData"],
+        shopSer.pullData,
+        {
+            staleTime: 20000,
+            //can get data by id, no need to call API
+            // onSuccess: (repoData) => {
+            //     repoData.forEach((item) => {
+            //         queryClient.setQueryData(["detail", item.id], item);
+            //     });
+            // },
+            // refetchInterval: 10000,
+            // cacheTime: 1000,
+        }
+        //stale time 20000 The time in milliseconds after data is considered stale. If set to Infinity, the data will never be considered stale.(reduce call API)
+        //cacheTime: 1000 remove dataCache after ...
+        //refetchInterval auto call API after 10000
+    );
+    const addItemMutation = useMutation(shopSer.addData, {
         onSuccess: () => {
             queryClient.invalidateQueries(["repoData"]);
         },
     });
-    const editTodoMutation = useMutation(shopSer.editData, {
+    const editItemMutation = useMutation(shopSer.editData, {
         onSuccess: () => {
             queryClient.invalidateQueries(["repoData"]);
         },
@@ -120,7 +137,7 @@ export function ListShoes({ setIsDetail }) {
                                             document.getElementById(
                                                 "priceShoe"
                                             ).value;
-                                        addTodoMutation.mutate({
+                                        addItemMutation.mutate({
                                             name,
                                             price,
                                         });
@@ -187,7 +204,7 @@ export function ListShoes({ setIsDetail }) {
                                             document.getElementById(
                                                 "idShoe"
                                             ).value;
-                                        editTodoMutation.mutate({
+                                        editItemMutation.mutate({
                                             name,
                                             id,
                                             price,

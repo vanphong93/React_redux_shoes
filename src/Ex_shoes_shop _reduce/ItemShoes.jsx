@@ -3,7 +3,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { shopSer } from "../Services/FetchAPI";
 export function ItemShoes({ detail, setIsDetail, handleAddCart }) {
     const queryClient = useQueryClient();
-    const addTodoMutation = useMutation(shopSer.deleteData, {
+    const deleteMutation = useMutation(shopSer.deleteData, {
         onSuccess: () => {
             queryClient.invalidateQueries(["repoData"]);
         },
@@ -28,7 +28,7 @@ export function ItemShoes({ detail, setIsDetail, handleAddCart }) {
                 </a>
                 <a
                     onClick={() => {
-                        addTodoMutation.mutate(id);
+                        deleteMutation.mutate(id);
                     }}
                     type="button"
                     className="text-danger mx-1"
@@ -55,9 +55,10 @@ export function ItemShoes({ detail, setIsDetail, handleAddCart }) {
                     role="button"
                     className=" mx-2"
                 >
-                    {queryClient.getQueryData(["detail", id])
+                    see
+                    {/* {queryClient.getQueryData(["detail", id])
                         ? "Watched"
-                        : "Detail"}
+                        : "Detail"} */}
                 </a>
             </div>
         </div>
