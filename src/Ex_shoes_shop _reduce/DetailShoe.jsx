@@ -1,29 +1,28 @@
-import React, { Component } from 'react'
-import { connect } from "react-redux";
- class DetailShoe extends Component {
-    render() {
-        let { price, description, image, name } = this.props.detailShoe;
-        return (
-            <div id='info' className='container p-5'>
-                <div className="row">
-                    <div className="col-4"><img src={image} className="w-100" />
-                    </div>
-                    <div className="col-8 text-success text-left">
-                        <p>{name}</p>
-                        <p><span className='text-danger'>Price: </span>{price}$</p>
-                        <p>{description}</p>
-                    </div>
-                </div>
-            </div>
-        )
-    }
+import { useQuery } from "@tanstack/react-query";
+import React from "react";
+import { shopSer } from "../Services/FetchAPI";
+export function DetailShoe({ isDetail, setIsDetail }) {
+    const { data, isLoading, error } = useQuery(["detail", isDetail], () =>
+        shopSer.pullById(isDetail)
+    );
+    if (isLoading) return "Loading...";
+    if (error) return "An error";
+    let { image, name, price, description } = data;
+    return (
+        <div className="container p-5">
+            <img src={image} alt={name} />
+            <h5>{name}</h5>
+            <h5 className="text-warning">{price}$</h5>
+            <p>{description}</p>
+            <a
+                onClick={() => {
+                    setIsDetail(-1);
+                }}
+                role="button"
+                className="btn btn-info"
+            >
+                Back
+            </a>
+        </div>
+    );
 }
-
-let mapStateToProps = (state) => {
-
-    return {
-        detailShoe: state.shoeReducer.detailShoe,
-    };
-};
-
-export default connect(mapStateToProps,null)(DetailShoe);
