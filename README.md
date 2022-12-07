@@ -1,4 +1,4 @@
-# SHOE SHOP with Redux
+# Mini Shop
 
 
 <div align="center">
@@ -11,6 +11,8 @@
 - reduxSaga_CRUD_axios_fetch: redux, redux sagas, call API with axios or fetch.
 - reduxToolkit: reduxToolkit basics.
 - redux_reduxThunk_CRUD: redux, reduxThunk, call API.
+- react-query : call API with fetch,do not use Redux (function component)
+- all branches written with class component except react-query
 ## Install
 
 In the project directory, you can run:
